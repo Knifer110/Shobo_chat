@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/html/chat.html');
+    res.sendFile(__dirname + '/html/index.html');
 });
 
 
@@ -36,7 +36,7 @@ app.post('/', (req, res) => {
     async function chat_send(){
         await chat_save();
         res.status(200);
-        res.sendFile(__dirname + '/html/chat.html');
+        res.sendFile(__dirname + '/html/index.html');
     }
 
     chat_send();
