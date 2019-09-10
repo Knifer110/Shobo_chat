@@ -25,7 +25,7 @@ app.post('/', (req, res) => {
     function chat_save(){
         return new Promise(resolve => {
             db.serialize(() => {
-                db.run('CREATE TABLE IF NOT EXISTS messages (date json, user json, content json)');
+                db.run('CREATE TABLE IF NOT EXISTS messages (date TEXT, user TEXT, content TEXT)');
                 const add = db.prepare('INSERT INTO messages (date, user, content) VALUES (?, ?, ?)');
                 add.run([`${date}`, `${user}`, `${text}`]);
                 add.finalize( () => resolve() );
