@@ -10,7 +10,7 @@ const db = new sqlite3.Database('example.db');
 
 
 app.use(express.static(__dirname));
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true}));
 
 
 app.get('/', (req, res) => {
