@@ -23,23 +23,16 @@ app.post('/', (req, res) => {
     const user = req.body.name;
     const text = req.body.text;
     function chat_save(){
-        return new Promise(resolve => {
-            db.serialize(() => {
-                db.run('CREATE TABLE IF NOT EXISTS messages (date TEXT, user TEXT, content TEXT)');
-                const add = db.prepare('INSERT INTO messages (date, user, content) VALUES (?, ?, ?)');
-                add.run([`${date}`, `${user}`, `${text}`]);
-                add.finalize( () => resolve() );
-            });
+        db.serialize(() => {
+            db.run('CREATE TABLE IF NOT EXISTS messages (date TEXT, user TEXT, content TEXT)');
+       	const add = db.prepare('INSERT INTO messages (date, user, content) VALUES (?, ?, ?)');
+            add.run([`${date}`, `${user}`, `${text}`]);
+            add.finalize();
         });
-    }
-    
-    async function chat_send(){
-        await chat_save();
+    }    
+        chat_save();
         res.status(200);
         res.sendFile(__dirname + '/html/index.html');
-    }
-
-    chat_send();
 });
 
 app.get('/database', (req, res) => {
@@ -68,3 +61,6 @@ app.get('/database', (req, res) => {
 
 
 app.listen(3000, () => console.log('Express app listening on port 3000!'));
+process.on('beforeExit', () =>{
+	db.close();
+});
