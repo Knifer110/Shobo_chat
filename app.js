@@ -10,7 +10,7 @@ const db = new sqlite3.Database('example.db');
 
 
 app.use(express.static(__dirname));
-app.use(bodyParser.urlencoded({ extended: true}));
+app.use(bodyParser.urlencoded({extended: true}));
 
 
 app.get('/', (req, res) => {
@@ -38,25 +38,19 @@ app.post('/', (req, res) => {
 app.get('/database', (req, res) => {
 
     function chat_load(){
-        return new Promise(resolve => {
+        
             db.serialize(() => {
                 db.all('SELECT * FROM messages ORDER BY date DESC', (error, row) => {
                     if(error){
                         console.log('ERROR!', error);
                         return;
                     }
-                resolve(row);
+                return row;
                 });
             });
-        });
     }
-
-    async function chat_print(){
-        const text = await chat_load();
+        const text = chat_load();
         res.send(text);
-    }
-
-    chat_print();
 });
 
 
