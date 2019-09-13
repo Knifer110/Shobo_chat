@@ -8,15 +8,12 @@ const moment = require('moment');
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('example.db');
 
-
-app.use(express.static(__dirname));
+app.use(express.static('html'));
 app.use(bodyParser.urlencoded({extended: true}));
 
-
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/html/index.html');
+    res.sendFile('index.html');
 });
-
 
 app.post('/', (req, res) => {
     const date = moment().format('YYYY-MM-DD HH:mm:s');
@@ -32,29 +29,27 @@ app.post('/', (req, res) => {
     }    
         chat_save();
         res.status(200);
-        res.sendFile(__dirname + '/html/index.html');
+        res.sendFile('index.html');
 });
 
 app.get('/database', (req, res) => {
-
-    function chat_load(){
-        
-            db.serialize(() => {
-                db.all('SELECT * FROM messages ORDER BY date DESC', (error, row) => {
-                    if(error){
-                        console.log('ERROR!', error);
-                        return;
-                    }
-                return row;
-                });
+    function chat_load(){        
+         db.serialize(() => {
+            db.all('SELECT * FROM messages ORDER BY date DESC', (error, row) => {
+                if(error){
+                    console.log('ERROR!', error);
+                    return;
+                }
+            return row;
             });
+        });
     }
-        const text = chat_load();
-        res.send(text);
+    const text = chat_load();
+    res.send(text);
 });
 
-
 app.listen(3000, () => console.log('Express app listening on port 3000!'));
+//終了時の処理
 process.on('beforeExit', () =>{
 	db.close();
 });
