@@ -18,4 +18,8 @@
     "url": "https://github.com/Knifer110/summer_project/issues"
   },
   "homepage": "https://github.com/Knifer110/summer_project#readme"
+  "dependencies": {
+    "moment": "^2.24.0",
+    "sqlite3": "^4.1.0"
+  }
 }
