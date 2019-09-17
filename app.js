@@ -19,7 +19,7 @@ app.post('/', (req, res) => {
     const date = moment().format('YYYY-MM-DD HH:mm:s');
     const user = req.body.name;
     const text = req.body.text;
-    function chat_save(){
+    function chatSave(){
         db.serialize(() => {
             db.run('CREATE TABLE IF NOT EXISTS messages (date TEXT, user TEXT, content TEXT)');
        	const add = db.prepare('INSERT INTO messages (date, user, content) VALUES (?, ?, ?)');
@@ -27,13 +27,13 @@ app.post('/', (req, res) => {
             add.finalize();
         });
     }    
-        chat_save();
+        chatSave();
         res.status(200);
         res.sendFile('index.html');
 });
 
 app.get('/database', (req, res) => {
-    function chat_load(){        
+    function chatLoad{
          db.serialize(() => {
             db.all('SELECT * FROM messages ORDER BY date DESC', (error, row) => {
                 if(error){
@@ -44,8 +44,11 @@ app.get('/database', (req, res) => {
             });
         });
     }
-    const text = chat_load();
-    res.send(text);
+    async function chatSend(){
+        const text = await chatLoad();
+        await res.send(text);
+    }
+    chatSend();
 });
 
 app.listen(3000, () => console.log('Express app listening on port 3000!'));
