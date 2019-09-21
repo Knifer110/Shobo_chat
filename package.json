@@ -4,6 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
+    "fmt": "prettier --write 'js/**/*.js'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,5 +21,7 @@
     "moment": "^2.24.0",
     "sqlite3": "^4.1.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "prettier": "^1.18.2"
+  }
 }
