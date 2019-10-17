@@ -33,12 +33,23 @@ app.post("/", (req, res) => {
       });
     });
   }
+<<<<<<< HEAD
 
   (async function chatPost() {
     await chatSave();
     res.status(200);
     res.sendFile(__dirname + "/html/index.html");
   })();
+=======
+
+  async function chatPost() {
+    await chatSave();
+    res.status(200);
+    res.sendFile(__dirname + "/html/index.html");
+  }
+
+  chatPost();
+>>>>>>> 5d07c5af548f4e0d367e306a6fbcbbd2db9afe78
 });
 
 app.get("/database", (req, res) => {
@@ -55,11 +66,21 @@ app.get("/database", (req, res) => {
       });
     });
   }
+<<<<<<< HEAD
 
   (async function chatSend() {
     const text = await chatLoad();
     res.send(text);
   })();
+=======
+
+  async function chatSend() {
+    const text = await chatLoad();
+    res.send(text);
+  }
+
+  chatSend();
+>>>>>>> 5d07c5af548f4e0d367e306a6fbcbbd2db9afe78
 });
 
 app.listen(3000, () => console.log("Express app listening on port 3000!"));

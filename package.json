@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "fmt": "prettier --write 'js/**/*.js'",
+    "fmt": "prettier --write 'js/**/*.js' && prettier --write 'app.js'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

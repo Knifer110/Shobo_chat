@@ -2,10 +2,10 @@
 
 $.ajax({
   data: {},
-  dataType: "json",
   dataFilter: (data, dataType) => {
     return data;
   },
+  dataType: "json",
   success: (data, dataType) => {
     const messagesElement = document.getElementById("messages");
     data.forEach(message => {
@@ -14,6 +14,6 @@ $.ajax({
       messagesElement.appendChild(p);
     });
   },
-  url: "http://localhost:3000/database",
-  type: "GET"
+  type: "GET",
+  url: "http://localhost:3000/database"
 });
